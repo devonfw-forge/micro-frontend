@@ -1,10 +1,14 @@
 {
   "name": "micro-frontend",
   "version": "1.0.0",
-  "description": "Client-Side integration approach",
+  "description": "micro frontend client-side integration approach",
   "main": "index.ts",
   "scripts": {
-    "test": "mocha --require ts-node/register --extensions ts 'test/**/*.test.ts'"
+    "build": "tsc -b tsconfig.json",
+    "format": "npm run lint -- --fix",
+    "lint": "eslint src test --ext .ts",
+    "test": "mocha --require ts-node/register --extensions ts 'test/**/*.test.ts'",
+    "test:watch": "npm run test -- --watch --watch-files ./src/**/*.ts --watch-files ./test/**/*.ts"
   },
   "repository": {
     "type": "git",
