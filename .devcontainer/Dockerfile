@@ -7,8 +7,26 @@ FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:0-${VARIANT}
 # [Optional] Uncomment this section to install additional OS packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # cypress dependencies: https://docs.cypress.io/guides/getting-started/installing-cypress.html#Ubuntu-Debian
-    && apt-get -y install --no-install-recommends libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+    && apt-get install --no-install-recommends -y \
+    libgtk2.0-0 \
+    libgtk-3-0 \
+    libnotify-dev \
+    libgconf-2-4 \
+    libnss3 \
+    libxss1 \
+    libasound2 \
+    libxtst6 \
+    xauth \
+    xvfb \
+    # https://github.com/actions/virtual-environments/issues/732#issuecomment-614809415
+    libgbm-dev
 
+ARG HOME="/home/node/"
+
+RUN echo 'sudo /etc/init.d/dbus start &> /dev/null' >> ${HOME}.bashrc && \
+    echo 'export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0' >> ${HOME}.bashrc && \
+# https://stackoverflow.com/questions/323957/how-do-i-edit-etc-sudoers-from-a-script
+    echo 'node ALL = (root) NOPASSWD: /etc/init.d/dbus' | sudo EDITOR='tee -a' visudo
 
 # [Optional] Uncomment if you want to install an additional version of node using nvm
 # ARG EXTRA_NODE_VERSION=10
