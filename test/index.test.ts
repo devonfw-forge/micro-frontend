@@ -1,8 +1,8 @@
-import { equal } from "assert";
+import { assert } from "chai";
 import { Foo } from "../src/index";
 
 describe("foo", () => {
   it("bar", () => {
-    equal(new Foo().bar, 1);
+    assert.equal(new Foo().bar, 1);
   });
 });
