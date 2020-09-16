@@ -29,8 +29,7 @@ module.exports = {
     "arrow-parens": 2,
     "@typescript-eslint/explicit-function-return-type": "off",
     "no-prototype-builtins": 1,
-    "no-undef": 1,
-    "eol-last": [2, "always"]
+    "no-undef": 1
   },
   env: {
     es6: true,
